@@ -10,6 +10,8 @@
   "dependencies": {
     "express": "^4.21.0"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "minimist": "^1.2.8"
+  },
   "description": ""
 }

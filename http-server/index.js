@@ -41,6 +41,7 @@ http.createServer((request, response) => {
       case "/registration":
         response.write(registrationcontent);
         response.end();
+        break;
       default:
         response.write(homeContent);
         response.end();
