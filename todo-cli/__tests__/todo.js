@@ -12,6 +12,7 @@ describe("Todolist Test Suite", () => {
             }
         )
     })
+    
     test("Should add new todo", () => {
         const todoItemsCount = all.length;
         add(
