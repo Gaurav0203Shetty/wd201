@@ -1,43 +1,66 @@
+/* eslint-disable no-undef */
+
 const todoList = require('../todo.js');
+
 const { all, markAsComplete, add, overdue, dueToday, dueLater } = todoList();
 
 describe("Todolist Test Suite", () => {
-  beforeAll(() => {
-    add({
-      title: "test todo",
-      completed: false,
-      dueDate: new Date().toISOString().slice(0, 10),
-    });
+  beforeEach(() => {
+    // Reset the to-do list before each test
+    all.length = 0;
   });
 
-  test("Should add new todo", () => {
+  test("Should add a todo item", () => {
     const todoItemsCount = all.length;
     add({
-      title: "another test todo",
+      title: "test todo",
       completed: false,
       dueDate: new Date().toISOString().slice(0, 10),
     });
     expect(all.length).toBe(todoItemsCount + 1);
   });
 
-  test("Should mark todo as complete", () => {
+  test("Should mark as complete", () => {
+    add({
+      title: "test todo",
+      completed: false,
+      dueDate: new Date().toISOString().slice(0, 10),
+    });
     expect(all[0].completed).toBe(false);
     markAsComplete(0);
     expect(all[0].completed).toBe(true);
   });
 
-  test("Should retrieve overdue todos", () => {
+  test("Should return overdue todos", () => {
+    add({
+      title: "Overdue todo",
+      completed: false,
+      dueDate: new Date(new Date().setDate(new Date().getDate() - 1)).toISOString().slice(0, 10),
+    });
     const overdueTodos = overdue();
-    expect(overdueTodos.every(todo => todo.dueDate < new Date().toISOString().slice(0, 10))).toBe(true);
+    expect(overdueTodos.length).toBe(1);
+    expect(overdueTodos[0].title).toBe("Overdue todo");
   });
 
-  test("Should retrieve due today todos", () => {
+  test("Should return todos due today", () => {
+    add({
+      title: "Today todo",
+      completed: false,
+      dueDate: new Date().toISOString().slice(0, 10),
+    });
     const todayTodos = dueToday();
-    expect(todayTodos.every(todo => todo.dueDate === new Date().toISOString().slice(0, 10))).toBe(true);
+    expect(todayTodos.length).toBe(1);
+    expect(todayTodos[0].title).toBe("Today todo");
   });
 
-  test("Should retrieve due later todos", () => {
+  test("Should return todos due later", () => {
+    add({
+      title: "Future todo",
+      completed: false,
+      dueDate: new Date(new Date().setDate(new Date().getDate() + 1)).toISOString().slice(0, 10),
+    });
     const laterTodos = dueLater();
-    expect(laterTodos.every(todo => todo.dueDate > new Date().toISOString().slice(0, 10))).toBe(true);
+    expect(laterTodos.length).toBe(1);
+    expect(laterTodos[0].title).toBe("Future todo");
   });
 });
