@@ -1,3 +1,4 @@
+/* models/index.js */
 /* eslint-disable no-undef */
 
 const fs = require('fs');

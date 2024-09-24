@@ -1,4 +1,6 @@
- const { connect } = require("./connectDB.js");
+/* index.js */
+
+const { connect } = require("./connectDB.js");
 const Todo = require("./TodoModel.js");
 
 const createTodo = async () => {
