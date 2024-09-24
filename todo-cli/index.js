@@ -1,6 +1,4 @@
-/* eslint-disable no-unused-vars */
-
-const { connect } = require("./connectDB.js");
+ const { connect } = require("./connectDB.js");
 const Todo = require("./TodoModel.js");
 
 const createTodo = async () => {
@@ -36,8 +34,8 @@ const getAllTodos = async () => {
     }
 }
 
-//(async () => {
-  //await createTodo();
-  //await countItems();
-  //await getAllTodos();
-//})();
+(async () => {
+  await createTodo();
+  await countItems();
+  await getAllTodos();
+})();
