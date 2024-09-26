@@ -1,4 +1,4 @@
-/* eslint-disable no-unused-vars */
+// app.js
 const express = require("express");
 const app = express();
 const { Todo } = require("./models"); // Import from models/index.js
@@ -62,11 +62,12 @@ app.put("/todos/:id/markAsCompleted", async (request, response) => {
 app.delete("/todos/:id", async (request, response) => {
     console.log("Delete a todo by ID:", request.params.id);
     try {
+        // Sequelize destroy method returns the number of rows affected
         const deleted = await Todo.destroy({ where: { id: request.params.id } });
         if (deleted) {
-            return response.json({ message: "Todo deleted successfully" });
+            return response.json(true); // Return true if the todo was deleted
         } else {
-            return response.status(404).json({ error: "Todo not found" });
+            return response.json(false); // Return false if the todo was not found
         }
     } catch (error) {
         console.log(error);
