@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 // app.js
 const express = require("express");
 const app = express();
@@ -5,6 +6,16 @@ const { Todo } = require("./models"); // Import from models/index.js
 const bodyParser = require("body-parser");
 
 app.use(bodyParser.json());
+
+app.set("view engine", "ejs");
+
+app.get("/", (request, response) => {
+    response.render("index.ejs");
+})
+
+app.get("/todos", (request, response) => {
+    console.log("todo list", request.body);
+})
 
 // GET route to fetch all todos
 app.get("/todos", async (request, response) => {
