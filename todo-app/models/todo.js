@@ -10,6 +10,9 @@ module.exports = (sequelize, DataTypes) => {
     markAsCompletedd() {
       return this.update({ completed: true })
     }
+    static getTodos() {
+      return this.findAll();
+    }
   }
 
   // Initialize the Todo model with necessary attributes

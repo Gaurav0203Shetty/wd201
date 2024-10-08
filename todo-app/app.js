@@ -4,14 +4,27 @@ const express = require("express");
 const app = express();
 const { Todo } = require("./models"); // Import from models/index.js
 const bodyParser = require("body-parser");
+const path = require("path")
 
 app.use(bodyParser.json());
 
 app.set("view engine", "ejs");
 
-app.get("/", (request, response) => {
-    response.render("index.ejs");
+app.get("/", async (request, response) => {
+    const allTodos = await Todo.getTodos();
+    if(request.accepts("html")) {
+        response.render("index.ejs", {
+            allTodos
+        });
+    } else {
+        response.json({
+            allTodos
+        })
+    }
 })
+
+// eslint-disable-next-line no-undef
+app.use(express.static(path.join(__dirname, 'public')));
 
 app.get("/todos", (request, response) => {
     console.log("todo list", request.body);
